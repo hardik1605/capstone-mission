@@ -2,16 +2,16 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master" , "develop" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master" , "develop" ]
 
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
-
+    environment: test
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
