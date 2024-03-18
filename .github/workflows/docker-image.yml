@@ -17,5 +17,5 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag myimage:v1
     - name: Run Container
-      run: docker run -d 8080:8080 myimage:v1
+      run: docker run -d myimage:v1
   
