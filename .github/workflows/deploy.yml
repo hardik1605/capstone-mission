@@ -1,0 +1,24 @@
+name: Docker Image Deploy
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  QA-deploy:
+    environment: Test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3    
+    - name: Deploy
+      run: echo "QA Deploy Image"
+  Prod-Deploy:
+    environment: Prod
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3    
+    - name: Deploy
+      run: echo "Prod Deploy Image"
