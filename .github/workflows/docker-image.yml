@@ -1,4 +1,4 @@
-name: Docker Image CI feature
+name: Docker Image CI master
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Hello
-      run: echo "Hello Feature"
+      run: echo "Hello Master"
     - name: Create a GitHub release
       uses: ncipollo/release-action@v1
       with:
