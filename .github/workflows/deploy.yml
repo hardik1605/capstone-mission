@@ -16,7 +16,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3    
     - name: QA Deploy
-      run: echo "QA Deploy Image"
+      run: echo "QA Deploy Images"
     - name: Using Test Secret
       run: |
         echo "${{ secrets.MY_TEST_SECRET }}" >> $GITHUB_ENV
