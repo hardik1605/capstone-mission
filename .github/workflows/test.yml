@@ -1,0 +1,23 @@
+name: 00 - Workflow Dispatch
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Test"
+        required: true
+        default: "dev"
+
+jobs:
+ deploy:
+   runs-on: ubuntu-latest
+   strategy:
+     matrix:
+       environment: ['dev', 'int', 'stg', 'prod']
+   steps:
+     - name: Checkout code
+       uses: actions/checkout@v2
+ 
+     - name: Deploy to Environment
+       run: echo "Deploying to ${{ matrix.environment }}"
+       if: github.event.inputs.environment == matrix.environment
