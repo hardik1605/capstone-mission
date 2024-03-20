@@ -1,0 +1,42 @@
+name: Docker Image Deploy
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  QA-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: Test
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3    
+    - name: QA Deploy
+      run: echo "QA Deploy Images"
+    - name: my Secret
+      shell: bash
+      env:
+        MY_TEST_SECRET: ${{ secrets.MY_TEST_SECRET }}
+      run: |
+        echo ${{ secrets.MY_TEST_SECRET }}
+
+  Prod-Deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: Prod
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3    
+    - name: Prod Deploy
+      run: echo "Prod Deploy Image"
+    - name: my Secret
+      shell: bash
+      env:
+        MY_PROD_SECRET: ${{ secrets.MY_PROD_SECRET }}
+      run: |
+        echo ${{ secrets.MY_PROD_SECRET }}
+
