@@ -1,21 +1,33 @@
-name: CI/CD Pipeline New
+name: Deploy
+
 on:
- workflow_dispatch:
-   inputs:
-     environment:
-       description: 'Target environments'     
-       required: true
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'QA'
 
 jobs:
- deploy:
-   runs-on: ubuntu-latest
-   strategy:
-     matrix:
-       environment: ['dev', 'int', 'stg', 'prod']
-   steps:
-     - name: Checkout code
-       uses: actions/checkout@v2
- 
-     - name: Deploy to Environment
-       run: echo "Deploying to ${{ matrix.environment }}"
-       if: github.event.inputs.environment == matrix.environment
+  deploy:
+    name: Deploy to ${{ github.event.inputs.environment }} Environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to Environment
+        run: |
+          case ${{ github.event.inputs.environment }} in
+            dev|QA|prod)
+              echo "Deploying to ${{ github.event.inputs.environment }} environment"
+              # Add deployment steps common for all environments
+              ;;
+            *)
+              echo "Invalid environment specified"
+              exit 1
+              ;;
+          esac
