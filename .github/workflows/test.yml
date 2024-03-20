@@ -8,16 +8,25 @@ on:
         required: true
         default: "dev"
 
-jobs:
+jobs:    
  deploy:
    runs-on: ubuntu-latest
-   strategy:
-     matrix:
-       environment: ['dev', 'int', 'stg', 'prod']
    steps:
      - name: Checkout code
        uses: actions/checkout@v2
  
-     - name: Deploy to Environment
-       run: echo "Deploying to ${{ matrix.environment }}"
-       if: github.event.inputs.environment == matrix.environment
+     - name: Deploy to Dev
+       if: github.event.inputs.environment == 'dev'
+       run: echo "Deploying to Dev environment"
+ 
+     - name: Deploy to Int
+       if: github.event.inputs.environment == 'int'
+       run: echo "Deploying to Int environment"
+ 
+     - name: Deploy to Stg
+       if: github.event.inputs.environment == 'stg'
+       run: echo "Deploying to Stg environment"
+ 
+     - name: Deploy to Prod
+       if: github.event.inputs.environment == 'prod'
+       run: echo "Deploying to Prod environment"
